@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v6.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v6.0": {
+      "Oreilly_ChapterTwo/1.0.0": {
+        "runtime": {
+          "Oreilly_ChapterTwo.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Oreilly_ChapterTwo/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
