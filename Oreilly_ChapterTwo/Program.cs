@@ -2,6 +2,8 @@
 namespace Oreilly_ChapterTwo{
     public class Program
     {
+        static string FreeForAll = "fdfd";
+
         public static void FieldsAndPropertiesMethod()
         {
             FieldsAndProperties fieldsAndProperties = new()
@@ -197,6 +199,71 @@ namespace Oreilly_ChapterTwo{
             NoConstructorClass ncc = new();
             Console.WriteLine($"{ncc.Id}, {ncc.ProductName}, {ncc.Description}, {ncc.Price}, {ncc.IsAvailable}");
         }
+
+        public static void Deconstruction()
+        {
+            // Deconstruction
+            (int, int) my_tuple = (2, 2);
+            (int x, int y) = my_tuple;
+            Console.WriteLine(x + y);
+        }
+        public static void OrderOfInitializationExample()
+        {
+            OrderOfInitialization.StaticFoo();
+            OrderOfInitialization oof = new();
+            oof.NonstaticFoo();
+        }
+
+        public static int OutKeyword(int x, int y, out int remainder, ref int refArg)
+        {
+            // If you need to return two values, then you can do it this way. 
+            // Tuple is also possible way. 
+            remainder = x % y;
+            
+            // Modify ref argument
+            refArg += 2;
+
+            return x / y;
+        }
+
+        public static void OutKeywordPrinter()
+        {
+            int refArg = 0;
+
+            // Example of Out argument
+            Console.WriteLine($"Quitient: {OutKeyword(100, 20, out int r, ref refArg)} Remainder: {r}");
+
+            Console.WriteLine(int.TryParse(FreeForAll, out int result) ? "String is parse-able" : "string is not parse-able");
+            Console.WriteLine($"Result is: {result}");
+
+            // You don't have to create new variable for out argument. 
+            int result2 = result;
+            Console.WriteLine(result2);
+
+            // Example of ref argument. 
+            // We passed in the reference of variable refArg to OutKeyword method. 
+            // When we define it ref, methd has direct access to the variable. 
+            Console.WriteLine(refArg);
+        }
+
+        public static void RefKeyword()
+        {
+            int originalVal = 23;
+            ref int pointer = ref originalVal;
+
+            // Modifying variable with through its pointer. 
+            pointer = 45;
+
+            Console.WriteLine(originalVal);
+        }
+
+        public static void OptionalParamsMethod(string firstName = "Devon", string lastName = "Katrina")
+        {
+            Console.WriteLine($"Person name is: {firstName} {lastName}");
+        }
+
+        public static void ExpressionBodyMethod(string txt) => Console.WriteLine(txt);
+
         static void Main()
         {
             //FieldsAndPropertiesMethod();
@@ -208,6 +275,11 @@ namespace Oreilly_ChapterTwo{
             //AccessibilityModifiers();
             //ChainingConstructors();
             //ClassDefaultState();
+            //OutKeywordPrinter();
+            //RefKeyword();
+            //OptionalParamsMethod(firstName: "Bill");
+            //OptionalParamsMethod(lastName: "Dean");
+            ExpressionBodyMethod("Text");
         }
     }
 }
