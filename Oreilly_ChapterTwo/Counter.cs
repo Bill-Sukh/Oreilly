@@ -41,8 +41,11 @@ namespace Oreilly_ChapterTwo
         public Counter()
         {
             this.ReadOnlyMember = "default value of read only member";
-            this._name = "Billy";
+            this.Name = "Billy";
+            this.Count = 32;
+            Console.WriteLine("Default constructor worked.");
         }
+
         public Counter(int count): this()
         {
             this.Count = count;

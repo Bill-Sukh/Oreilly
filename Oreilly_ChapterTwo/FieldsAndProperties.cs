@@ -38,6 +38,16 @@ namespace Oreilly_ChapterTwo
         // This syntax creates private field automatically. It looks different, but it is exactly same as two fields above. 
         // Only difference here is that private field declaration is implicit. And you interact with the field through Property name. 
         public string? Address { get; set; }
-        public string? City { get; set; }
+        public string? City { get; private set; }
+
+        public FieldsAndProperties()
+        {
+            City = "Mandala";
+        }
+
+        public void GetCurrentCity()
+        {
+            City = "Las Vegas";
+        }
     }
 }

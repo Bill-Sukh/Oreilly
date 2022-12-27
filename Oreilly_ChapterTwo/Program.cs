@@ -11,10 +11,12 @@ namespace Oreilly_ChapterTwo{
                 Id = 2,
                 Name = null,
                 Address = "Hell st 232",
-                City = "Hueco Mundo"
             };
 
             Console.WriteLine($"{fieldsAndProperties.Id} {fieldsAndProperties.Name}");
+            Console.WriteLine($"{fieldsAndProperties.City}");
+            fieldsAndProperties.GetCurrentCity();
+            Console.WriteLine($"{fieldsAndProperties.City}");
         }
 
         public static void ReferenceTypes()
@@ -264,23 +266,118 @@ namespace Oreilly_ChapterTwo{
 
         public static void ExpressionBodyMethod(string txt) => Console.WriteLine(txt);
 
-        static void Main()
+        public static void IndexerNullCheck()
         {
-            //FieldsAndPropertiesMethod();
-            //ReferenceTypes();
-            //StaticMembers();
-            //Nullables();
-            //Structs();
-            //Hash();
-            //AccessibilityModifiers();
-            //ChainingConstructors();
-            //ClassDefaultState();
-            //OutKeywordPrinter();
-            //RefKeyword();
-            //OptionalParamsMethod(firstName: "Bill");
-            //OptionalParamsMethod(lastName: "Dean");
-            ExpressionBodyMethod("Text");
+            string[] arr = new string[10];
+
+            string? nullableStr = arr?[0];
+            string nonNullStr = arr[0];
+
+            if (arr[0] == "val")
+            {
+                Console.WriteLine("OK");
+            }
+
+            Console.WriteLine(String.IsNullOrEmpty(nullableStr));
+            Console.WriteLine(String.IsNullOrEmpty(nonNullStr));
         }
+
+        public static void InitializerSyntax()
+        {
+            // With initializer syntax, you can initialize only the number of properties you'd like. 
+            Counter ctr = new()
+            {
+                Name = "Gideon",
+                Count = 12
+            };
+
+            Console.WriteLine($"{ctr.Name} {ctr.Count}");
+        }
+
+        public static void Interfaces()
+        {
+
+        }
+
+        //static void Main()
+        //{
+        //    //FieldsAndPropertiesMethod();
+        //    //ReferenceTypes();
+        //    //StaticMembers();
+        //    //Nullables();
+        //    //Structs();
+        //    //Hash();
+        //    //AccessibilityModifiers();
+        //    //ChainingConstructors();
+        //    //ClassDefaultState();
+        //    //OutKeywordPrinter();
+        //    //RefKeyword();
+        //    //OptionalParamsMethod(firstName: "Bill");
+        //    //OptionalParamsMethod(lastName: "Dean");
+        //    //ExpressionBodyMethod("Text");
+        //    //IndexerNullCheck();
+        //    InitializerSyntax();
+        //}
+    }
+
+    public class NestedTypeExample
+    {
+        private static void Main(string[] args)
+        {
+            string[] words = new string[7] { "ipsume", "Lorem", "dollarias", "dolores", "bogartation", "Her", "codac" };
+
+            // Default sort method sorts the strings alphabetically.
+            Array.Sort(words);
+            foreach (string file in words)
+            {
+                Console.WriteLine(file);
+            }
+
+            Console.WriteLine(new String('-', 45));
+
+            // Sort method with custom comparer that sorts by length. 
+            var comparer = new LengthComparer();
+            Array.Sort(words, comparer);
+            foreach (string file in words)
+            {
+                Console.WriteLine(file);
+            }
+
+
+            Console.WriteLine(new String('-', 45));
+
+            // Sort method with custom comparer that sorts strings alphabetically with its last letter. 
+            var lastLetterComparer = new LastLetterComparer();
+            Array.Sort(words, lastLetterComparer);
+            foreach (string file in words)
+            {
+                Console.WriteLine(file);
+            }
+        }
+
+        private class LastLetterComparer : IComparer<string>
+        {
+            public int Compare(string x, string y)
+            {
+                //return x.ElementAt(x.Length - 1).CompareTo(y.ElementAt(y.Length - 1));
+                return GetLastLetter(x).CompareTo(GetLastLetter(y));
+            }
+
+            public static char GetLastLetter(string input)
+            {
+                return input.ElementAt(input.Length - 1);
+            }
+        }
+
+        private class LengthComparer : IComparer<string>
+        {
+            public int Compare(string x, string y)
+            {
+                int diff = x.Length - y.Length;
+                return diff == 0 ? x.CompareTo(y) : diff;
+            }
+        }
+
     }
 }
 
