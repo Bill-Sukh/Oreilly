@@ -1,37 +1,39 @@
 ﻿
-namespace Oreilly_ChapterTwo{
+using Oreilly_ChapterTwo.Models;
+
+namespace Oreilly_ChapterTwo
+{
     public class Program
     {
         static string FreeForAll = "fdfd";
 
         public static void FieldsAndPropertiesMethod()
         {
-            FieldsAndProperties fieldsAndProperties = new()
+            Employee fieldsAndProperties = new()
             {
-                Id = 2,
+                Emp_Id = 2,
                 Name = null,
                 Address = "Hell st 232",
             };
 
-            Console.WriteLine($"{fieldsAndProperties.Id} {fieldsAndProperties.Name}");
+            Console.WriteLine($"{fieldsAndProperties.Emp_Id} {fieldsAndProperties.Name}");
             Console.WriteLine($"{fieldsAndProperties.City}");
-            fieldsAndProperties.GetCurrentCity();
             Console.WriteLine($"{fieldsAndProperties.City}");
         }
 
         public static void ReferenceTypes()
         {
-            FieldsAndProperties originalInstance = new()
+            Employee originalInstance = new()
             {
-                Id = 3,
+                Emp_Id = 3,
                 Name = "Josh"
             };
 
             // This variable is not the copy of the original instance object. But a reference to it. 
-            FieldsAndProperties copyOfReference = originalInstance;
+            Employee copyOfReference = originalInstance;
 
             // This one also gets assigned reference to original instance. 
-            FieldsAndProperties copyOfCopy = copyOfReference;
+            Employee copyOfCopy = copyOfReference;
 
             Console.WriteLine($"Copy: {copyOfReference.Name}, Original: {originalInstance.Name}, Copy of Copy: {copyOfCopy.Name}");
 
@@ -296,89 +298,98 @@ namespace Oreilly_ChapterTwo{
 
         public static void Interfaces()
         {
+            // Implementation detail defined in using class
+            Employee employee = new();
+            employee = employee.GetEmployee(empId: 1);
 
+            // Using default implementation method
+            IEmployee iemployee = employee;
+            iemployee.GetEmployeeBadgeNumber(employee.Emp_Id, employee.Name);
+
+            Console.WriteLine($"NAME: {employee.Name}, BADGE#: {iemployee.GetEmployeeBadgeNumber(employee.Emp_Id, employee.Name)}");
         }
 
-        //static void Main()
-        //{
-        //    //FieldsAndPropertiesMethod();
-        //    //ReferenceTypes();
-        //    //StaticMembers();
-        //    //Nullables();
-        //    //Structs();
-        //    //Hash();
-        //    //AccessibilityModifiers();
-        //    //ChainingConstructors();
-        //    //ClassDefaultState();
-        //    //OutKeywordPrinter();
-        //    //RefKeyword();
-        //    //OptionalParamsMethod(firstName: "Bill");
-        //    //OptionalParamsMethod(lastName: "Dean");
-        //    //ExpressionBodyMethod("Text");
-        //    //IndexerNullCheck();
-        //    InitializerSyntax();
-        //}
+        static void Main()
+        {
+            //FieldsAndPropertiesMethod();
+            //ReferenceTypes();
+            //StaticMembers();
+            //Nullables();
+            //Structs();
+            //Hash();
+            //AccessibilityModifiers();
+            //ChainingConstructors();
+            //ClassDefaultState();
+            //OutKeywordPrinter();
+            //RefKeyword();
+            //OptionalParamsMethod(firstName: "Bill");
+            //OptionalParamsMethod(lastName: "Dean");
+            //ExpressionBodyMethod("Text");
+            //IndexerNullCheck();
+            //InitializerSyntax();
+            Interfaces();
+        }
     }
 
-    public class NestedTypeExample
-    {
-        private static void Main(string[] args)
-        {
-            string[] words = new string[7] { "ipsume", "Lorem", "dollarias", "dolores", "bogartation", "Her", "codac" };
+    //public class NestedTypeExample
+    //{
+    //    private static void Main(string[] args)
+    //    {
+    //        string[] words = new string[7] { "ipsume", "Lorem", "dollarias", "dolores", "bogartation", "Her", "codac" };
 
-            // Default sort method sorts the strings alphabetically.
-            Array.Sort(words);
-            foreach (string file in words)
-            {
-                Console.WriteLine(file);
-            }
+    //        // Default sort method sorts the strings alphabetically.
+    //        Array.Sort(words);
+    //        foreach (string file in words)
+    //        {
+    //            Console.WriteLine(file);
+    //        }
 
-            Console.WriteLine(new String('-', 45));
+    //        Console.WriteLine(new String('-', 45));
 
-            // Sort method with custom comparer that sorts by length. 
-            var comparer = new LengthComparer();
-            Array.Sort(words, comparer);
-            foreach (string file in words)
-            {
-                Console.WriteLine(file);
-            }
+    //        // Sort method with custom comparer that sorts by length. 
+    //        var comparer = new LengthComparer();
+    //        Array.Sort(words, comparer);
+    //        foreach (string file in words)
+    //        {
+    //            Console.WriteLine(file);
+    //        }
 
 
-            Console.WriteLine(new String('-', 45));
+    //        Console.WriteLine(new String('-', 45));
 
-            // Sort method with custom comparer that sorts strings alphabetically with its last letter. 
-            var lastLetterComparer = new LastLetterComparer();
-            Array.Sort(words, lastLetterComparer);
-            foreach (string file in words)
-            {
-                Console.WriteLine(file);
-            }
-        }
+    //        // Sort method with custom comparer that sorts strings alphabetically with its last letter. 
+    //        var lastLetterComparer = new LastLetterComparer();
+    //        Array.Sort(words, lastLetterComparer);
+    //        foreach (string file in words)
+    //        {
+    //            Console.WriteLine(file);
+    //        }
+    //    }
 
-        private class LastLetterComparer : IComparer<string>
-        {
-            public int Compare(string x, string y)
-            {
-                //return x.ElementAt(x.Length - 1).CompareTo(y.ElementAt(y.Length - 1));
-                return GetLastLetter(x).CompareTo(GetLastLetter(y));
-            }
+    //    private class LastLetterComparer : IComparer<string>
+    //    {
+    //        public int Compare(string x, string y)
+    //        {
+    //            //return x.ElementAt(x.Length - 1).CompareTo(y.ElementAt(y.Length - 1));
+    //            return GetLastLetter(x).CompareTo(GetLastLetter(y));
+    //        }
 
-            public static char GetLastLetter(string input)
-            {
-                return input.ElementAt(input.Length - 1);
-            }
-        }
+    //        public static char GetLastLetter(string input)
+    //        {
+    //            return input.ElementAt(input.Length - 1);
+    //        }
+    //    }
 
-        private class LengthComparer : IComparer<string>
-        {
-            public int Compare(string x, string y)
-            {
-                int diff = x.Length - y.Length;
-                return diff == 0 ? x.CompareTo(y) : diff;
-            }
-        }
+    //    private class LengthComparer : IComparer<string>
+    //    {
+    //        public int Compare(string x, string y)
+    //        {
+    //            int diff = x.Length - y.Length;
+    //            return diff == 0 ? x.CompareTo(y) : diff;
+    //        }
+    //    }
 
-    }
+    //}
 }
 
 

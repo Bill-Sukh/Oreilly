@@ -4,14 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Oreilly_ChapterTwo
+namespace Oreilly_ChapterTwo.Models
 {
-    public class FieldsAndProperties
+    // Used to demonstrate fields and properties section. 
+    public class Employee : IEmployee
     {
         private int _id;
         private string? _name;
+        private decimal _salary;
 
-        public int Id
+        public int Emp_Id
         {
             get
             {
@@ -19,7 +21,7 @@ namespace Oreilly_ChapterTwo
             }
             set
             {
-                _id = value == 0 ? 1 : value;
+                _id = value;
             }
         }
 
@@ -31,7 +33,19 @@ namespace Oreilly_ChapterTwo
             }
             set
             {
-                _name = value == null ? "John Doe" : value;
+                _name = value;
+            }
+        }
+
+        public decimal Salary
+        {
+            get
+            {
+                return _salary;
+            }
+            set
+            {
+                _salary = value;
             }
         }
 
@@ -40,14 +54,15 @@ namespace Oreilly_ChapterTwo
         public string? Address { get; set; }
         public string? City { get; private set; }
 
-        public FieldsAndProperties()
+        public Employee()
         {
-            City = "Mandala";
+            // Empty constructor
         }
 
-        public void GetCurrentCity()
+        public Employee GetEmployee(int empId)
         {
-            City = "Las Vegas";
+            Database employees = new();
+            return employees.GetEmployeeList().SingleOrDefault(employee => empId == employee.Emp_Id);
         }
     }
 }
